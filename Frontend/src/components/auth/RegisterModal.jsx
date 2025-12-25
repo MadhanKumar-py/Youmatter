@@ -75,6 +75,7 @@ function RegisterModal() {
               onChange={handleChange}
               className="w-full px-3 py-2 border border-lighterGreen rounded-lg focus:outline-darkGreen/60 text-sm"
               placeholder="Choose a username"
+              autoComplete="username"
               required
             />
             {errors.username && <p className="text-red-500 text-xs mt-1">{errors.username[0]}</p>}
@@ -91,6 +92,7 @@ function RegisterModal() {
               onChange={handleChange}
               className="w-full px-3 py-2 border border-lighterGreen rounded-lg focus:outline-darkGreen/60 text-sm"
               placeholder="Enter your email"
+              autoComplete="email"
               required
             />
             {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email[0]}</p>}
@@ -107,6 +109,7 @@ function RegisterModal() {
               onChange={handleChange}
               className="w-full px-3 py-2 border border-lighterGreen rounded-lg focus:outline-darkGreen/60 text-sm"
               placeholder="Create a password"
+              autoComplete="new-password"
               required
             />
             {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password[0]}</p>}
@@ -123,6 +126,7 @@ function RegisterModal() {
               onChange={handleChange}
               className="w-full px-3 py-2 border border-lighterGreen rounded-lg focus:outline-darkGreen/60 text-sm"
               placeholder="Confirm your password"
+              autoComplete="new-password"
               required
             />
             {errors.password_confirm && <p className="text-red-500 text-xs mt-1">{errors.password_confirm[0]}</p>}

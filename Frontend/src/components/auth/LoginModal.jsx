@@ -59,6 +59,7 @@ function LoginModal() {
               onChange={(e) => setUsername(e.target.value)}
               className="w-full px-3 py-2 border border-lighterGreen rounded-lg focus:outline-darkGreen/60"
               placeholder="Enter your username"
+              autoComplete="username"
               required
             />
           </div>
@@ -73,6 +74,7 @@ function LoginModal() {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-3 py-2 border border-lighterGreen rounded-lg focus:outline-darkGreen/60"
               placeholder="Enter your password"
+              autoComplete="current-password"
               required
             />
           </div>
