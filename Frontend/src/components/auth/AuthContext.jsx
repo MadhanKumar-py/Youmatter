@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_URL } from '../../config/api';
 
 const AuthContext = createContext();
 
@@ -29,7 +30,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchProfile = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/auth/profile/');
+      const response = await axios.get(`${API_URL}/auth/profile/`);
       setUser(response.data);
     } catch (error) {
       console.error('Failed to fetch profile:', error);
@@ -41,7 +42,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const response = await axios.post('http://localhost:8000/api/auth/token/', {
+      const response = await axios.post(`${API_URL}/auth/token/`, {
         username,
         password
       });
@@ -69,7 +70,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     try {
-      const response = await axios.post('http://localhost:8000/api/auth/register/', userData);
+      const response = await axios.post(`${API_URL}/auth/register/`, userData);
       
       const { access, refresh, user } = response.data;
       
@@ -95,7 +96,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const refreshToken = localStorage.getItem('refresh_token');
       if (refreshToken) {
-        await axios.post('http://localhost:8000/api/auth/logout/', {
+        await axios.post(`${API_URL}/auth/logout/`, {
           refresh: refreshToken
         });
       }

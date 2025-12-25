@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Button from '../Button';
 import { useAuth } from '../auth/AuthContext';
+import { API_URL } from '../../config/api';
 
 function PsychartistList() {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ function PsychartistList() {
   const fetchPsychartists = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:8000/api/psychartist/');
+      const response = await axios.get(`${API_URL}/psychartist/`);
       setPsychartists(response.data);
     } catch (error) {
       console.error('Error fetching psychartists:', error);

@@ -5,6 +5,7 @@ import CheckInData from './CheckInData'
 import Button from '../Button'
 import {checkInContext} from './CheckInContextProvider'
 import { useAuth } from '../auth/AuthContext'
+import { API_URL } from '../../config/api'
 
 function CheckIn() {
   const { state } = useLocation()
@@ -30,7 +31,7 @@ function CheckIn() {
     }
     
     try {
-      const response = await axios.post('http://localhost:8000/api/checkin/', checkInDataBackend);
+      const response = await axios.post(`${API_URL}/checkin/`, checkInDataBackend);
       console.log('Check-in saved successfully:', response.data);
       setCheckInDataList(prevList => [response.data, ...prevList]);
       setReason('')
@@ -48,7 +49,7 @@ function CheckIn() {
     
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/checkin/')
+        const response = await axios.get(`${API_URL}/checkin/`)
         console.log(response.data)
         setCheckInDataList(response.data)
         console.log("Fetched check-in history successfully")
