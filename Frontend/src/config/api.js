@@ -1,5 +1,12 @@
 // API Configuration
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://youmatter-backend-9tfj.onrender.com';
+const API_URL = import.meta.env.VITE_API_URL || 'https://youmatter-backend-9tfj.onrender.com/api';
+
+console.log('Environment variables:', {
+  VITE_API_BASE_URL: import.meta.env.VITE_API_BASE_URL,
+  VITE_API_URL: import.meta.env.VITE_API_URL,
+  API_BASE_URL,
+  API_URL
+});
 
 export { API_BASE_URL, API_URL };
