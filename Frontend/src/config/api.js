@@ -9,4 +9,11 @@ console.log('Environment variables:', {
   API_URL
 });
 
-export { API_BASE_URL, API_URL };
+// Force production URLs for now
+const PRODUCTION_API_BASE_URL = 'https://youmatter-backend-9tfj.onrender.com';
+const PRODUCTION_API_URL = 'https://youmatter-backend-9tfj.onrender.com/api';
+
+export { 
+  API_BASE_URL: PRODUCTION_API_BASE_URL, 
+  API_URL: PRODUCTION_API_URL 
+};
