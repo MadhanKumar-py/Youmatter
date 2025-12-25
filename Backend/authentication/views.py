@@ -7,8 +7,6 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
 from django.conf import settings
 from .serializers import UserRegistrationSerializer, UserProfileSerializer
-from psychartist.models import PsychartistProfile
-from psychartist.serializers import PsychartistProfileSerializer
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -44,37 +42,7 @@ class ProfileView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        # Get psychartist profile if exists
-        psychartist_profile = None
-        psychartist_status = {
-            'has_application': False,
-            'status': None,
-            'applied_at': None
-        }
-        
-        try:
-            psychartist_profile = PsychartistProfile.objects.get(user=request.user)
-            if psychartist_profile.is_approved:
-                # User is an approved psychartist
-                pass
-            else:
-                # User has application but not approved
-                psychartist_status = {
-                    'has_application': True,
-                    'status': 'pending' if not psychartist_profile.is_rejected else 'rejected',
-                    'applied_at': psychartist_profile.created_at.isoformat()
-                }
-                psychartist_profile = None  # Don't include profile data if not approved
-        except PsychartistProfile.DoesNotExist:
-            pass
-        
-        user_data = UserProfileSerializer(request.user).data
-        user_data['psychartist_status'] = psychartist_status
-        
-        if psychartist_profile:
-            user_data['psychartist_profile'] = PsychartistProfileSerializer(psychartist_profile).data
-        
-        return Response(user_data)
+        return Response(UserProfileSerializer(request.user).data)
 
 # TEMPORARY ADMIN CREATION ENDPOINT - REMOVE AFTER USE
 @api_view(['GET', 'POST'])
