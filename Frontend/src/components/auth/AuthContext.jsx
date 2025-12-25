@@ -4,6 +4,41 @@ import { API_URL } from '../../config/api';
 
 const AuthContext = createContext();
 
+// Add axios interceptor to handle token refresh
+axios.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+    
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      
+      const refreshToken = localStorage.getItem('refresh_token');
+      if (refreshToken) {
+        try {
+          const response = await axios.post(`${API_URL}/auth/token/refresh/`, {
+            refresh: refreshToken
+          });
+          
+          const { access } = response.data;
+          localStorage.setItem('access_token', access);
+          axios.defaults.headers.common['Authorization'] = `Bearer ${access}`;
+          
+          return axios(originalRequest);
+        } catch (refreshError) {
+          // Refresh failed, logout user
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('refresh_token');
+          delete axios.defaults.headers.common['Authorization'];
+          window.location.reload();
+        }
+      }
+    }
+    
+    return Promise.reject(error);
+  }
+);
+
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
