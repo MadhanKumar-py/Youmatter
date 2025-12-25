@@ -5,6 +5,7 @@ import { checkInContext } from "./CheckInContextProvider";
 import { useAuth } from "../auth/AuthContext";
 import axios from 'axios';
 import Button from '../Button';
+import { API_URL } from '../../config/api';
 
 function CheckInHis() {
     const {checkInDataList , setCheckInDataList, handleDelete} = useContext(checkInContext)
@@ -17,12 +18,12 @@ function CheckInHis() {
         
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/checkin/')
+                const response = await axios.get(`${API_URL}/checkin/`)
                 console.log('Fetched data:', response.data)
                 setCheckInDataList(response.data)
                 
                 // Fetch quick check-ins
-                const quickResponse = await axios.get('http://localhost:8000/api/checkin/quick/')
+                const quickResponse = await axios.get(`${API_URL}/checkin/quick/`)
                 setQuickCheckins(quickResponse.data)
             } catch (error) {
                 console.log("Error fetching check-ins:", error)
@@ -83,7 +84,7 @@ function CheckInHis() {
                                                 class="absolute bottom-2 right-2 rounded-lg hover:bg-red-600 hover:shadow-sm shadow-gray-700/50 p-1 bg-red-600/70" 
                                                 click={async () => {
                                                     try {
-                                                        await axios.delete(`http://localhost:8000/api/checkin/quick/${item.id}/`);
+                                                        await axios.delete(`${API_URL}/checkin/quick/${item.id}/`);
                                                         setQuickCheckins(prevList => prevList.filter(q => q.id !== item.id));
                                                     } catch (error) {
                                                         console.log("Error deleting quick check-in:", error);
