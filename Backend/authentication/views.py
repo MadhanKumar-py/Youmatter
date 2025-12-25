@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
 from django.conf import settings
-from .serializers import UserRegistrationSerializer, UserSerializer
+from .serializers import UserRegistrationSerializer, UserProfileSerializer
 from psychartist.models import PsychartistProfile
 from psychartist.serializers import PsychartistProfileSerializer
 
@@ -23,7 +23,7 @@ class RegisterView(generics.CreateAPIView):
         refresh = RefreshToken.for_user(user)
         
         return Response({
-            'user': UserSerializer(user).data,
+            'user': UserProfileSerializer(user).data,
             'refresh': str(refresh),
             'access': str(refresh.access_token),
         }, status=status.HTTP_201_CREATED)
@@ -68,7 +68,7 @@ class ProfileView(APIView):
         except PsychartistProfile.DoesNotExist:
             pass
         
-        user_data = UserSerializer(request.user).data
+        user_data = UserProfileSerializer(request.user).data
         user_data['psychartist_status'] = psychartist_status
         
         if psychartist_profile:
