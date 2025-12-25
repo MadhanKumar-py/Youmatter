@@ -26,6 +26,7 @@ import PsychartistList from './components/psychartist/PsychartistList'
 import PsychartistProfile from './components/psychartist/PsychartistProfile'
 import Footer from './components/Footer'
 import PrivatePage from './components/PrivatePage'
+import Friend from './components/special/Friend'
 
 function App() {
   return (
@@ -55,7 +56,7 @@ function App() {
             <Route path="/calming/grounding" element={<GroundingExercise />} />
             <Route path="/psychartists" element={<PsychartistList />} />
             <Route path="/psychartist/:id" element={<PsychartistProfile />} />
-            <Route path="/friend" element={<PrivatePage />} />
+            <Route path="/friend" element={<Friend />} />
           </Routes>
           <Footer />
         </CheckInContextProvider>

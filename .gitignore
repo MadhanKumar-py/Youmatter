@@ -50,7 +50,7 @@ Thumbs.db
 
 # Special App Data (Friend Component)
 Backend/special/migrations/
-Frontend/src/components/special/
+Frontend/src/components/special/friendData.json
 
 # Environment variables
 .env

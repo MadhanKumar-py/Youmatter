@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Button from '../Button';
 import { useAuth } from '../auth/AuthContext';
+import { API_URL } from '../../config/api';
 
 function QuickCheckInPreview() {
   const [recentCheckins, setRecentCheckins] = useState([]);
@@ -14,7 +15,7 @@ function QuickCheckInPreview() {
     
     const fetchRecent = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/checkin/quick/');
+        const response = await axios.get(`${API_URL}/checkin/quick/`);
         setRecentCheckins(response.data.slice(0, 3));
       } catch (error) {
         console.error('Error fetching recent quick check-ins:', error);
