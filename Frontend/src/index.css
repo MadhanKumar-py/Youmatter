@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@theme{
+    --color-primarySoftGreen:#8CC8A0;
+    --color-lighterGreen:#AEE4BD;
+    --color-darkGreen:#4F8A65;
+    --color-offWhite:#F6FAF7;
+    --color-neutralGray:#44554B;
+    --color-emergencyButton:#E05252;
+}

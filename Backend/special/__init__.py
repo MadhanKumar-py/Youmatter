@@ -1,0 +1,1 @@
+# Special app for friend data storage
