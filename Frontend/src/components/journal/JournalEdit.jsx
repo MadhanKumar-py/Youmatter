@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Button from '../Button';
+import { API_URL } from '../../config/api';
 
 function JournalEdit() {
   const { id } = useParams();
@@ -17,7 +18,7 @@ function JournalEdit() {
 
   const fetchEntry = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/api/journal/${id}/`);
+      const response = await axios.get(`${API_URL}/journal/${id}/`);
       setTitle(response.data.title || '');
       setContent(response.data.content);
     } catch (error) {
@@ -39,7 +40,7 @@ function JournalEdit() {
 
     setSaving(true);
     try {
-      await axios.put(`http://localhost:8000/api/journal/${id}/`, {
+      await axios.put(`${API_URL}/journal/${id}/`, {
         title: title.trim() || null,
         content: content.trim()
       });

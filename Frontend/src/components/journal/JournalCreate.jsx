@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Button from '../Button';
 import { useAuth } from '../auth/AuthContext';
+import { API_URL } from '../../config/api';
 
 function JournalCreate() {
   const [title, setTitle] = useState('');
@@ -26,7 +27,7 @@ function JournalCreate() {
 
     setSaving(true);
     try {
-      const response = await axios.post('http://localhost:8000/api/journal/', {
+      const response = await axios.post(`${API_URL}/journal/`, {
         title: title.trim() || null,
         content: content.trim()
       });

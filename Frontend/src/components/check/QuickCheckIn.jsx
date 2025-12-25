@@ -5,6 +5,7 @@ import Button from "../Button";
 import calmImage from "../../assets/calming_illustration.jpeg";
 import { checkInContext } from "./CheckInContextProvider";
 import { useAuth } from "../auth/AuthContext";
+import { API_URL } from "../../config/api";
 
 export default function QuickCheckin() {
   const navigate = useNavigate();
@@ -104,8 +105,8 @@ export default function QuickCheckin() {
       };
 
       console.log("Sending payload:", payload);
-      console.log("Posting to URL: http://localhost:8000/api/checkin/quick/");
-      const response = await axios.post("http://localhost:8000/api/checkin/quick/", payload);
+      console.log("Posting to URL:", `${API_URL}/checkin/quick/`);
+      const response = await axios.post(`${API_URL}/checkin/quick/`, payload);
       console.log("Response status:", response.status);
       console.log("Quick check-in saved:", response.data);
       setCheckInDataList(prevList => [response.data, ...prevList]);

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import Button from '../Button';
+import { API_URL } from '../../config/api';
 
 function PsychartistModal() {
   const [formData, setFormData] = useState({
@@ -55,7 +56,7 @@ function PsychartistModal() {
         submitData.append('profile_picture', profilePicture);
       }
 
-      const response = await axios.post('http://localhost:8000/api/psychartist/apply/', submitData, {
+      const response = await axios.post(`${API_URL}/psychartist/apply/`, submitData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

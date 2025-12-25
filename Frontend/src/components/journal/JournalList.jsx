@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Button from '../Button';
 import { useAuth } from '../auth/AuthContext';
+import { API_URL } from '../../config/api';
 
 function JournalList() {
   const [entries, setEntries] = useState([]);
@@ -16,7 +17,7 @@ function JournalList() {
 
   const fetchEntries = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/journal/');
+      const response = await axios.get(`${API_URL}/journal/`);
       setEntries(response.data);
     } catch (error) {
       console.error('Error fetching journal entries:', error);

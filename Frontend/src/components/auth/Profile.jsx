@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import axios from 'axios';
 import Button from '../Button';
+import { API_URL, API_BASE_URL } from '../../config/api';
 
 function Profile() {
   const { user, isAuthenticated, loading, logout } = useAuth();
@@ -27,11 +28,11 @@ function Profile() {
         setLoadingData(true);
         
         // Fetch regular check-ins
-        const checkInResponse = await axios.get('http://localhost:8000/api/checkin/');
+        const checkInResponse = await axios.get(`${API_URL}/checkin/`);
         setRecentCheckIns(checkInResponse.data.slice(0, 2));
         
         // Fetch quick check-ins
-        const quickCheckInResponse = await axios.get('http://localhost:8000/api/checkin/quick/');
+        const quickCheckInResponse = await axios.get(`${API_URL}/checkin/quick/`);
         setRecentQuickCheckIns(quickCheckInResponse.data.slice(0, 2));
         
       } catch (error) {
@@ -173,7 +174,7 @@ function Profile() {
               <div className="w-16 h-16 rounded-full overflow-hidden">
                 {user.psychartist_profile.profile_picture ? (
                   <img 
-                    src={`http://localhost:8000${user.psychartist_profile.profile_picture}`} 
+                    src={`${API_BASE_URL}${user.psychartist_profile.profile_picture}`} 
                     alt={user.psychartist_profile.full_name}
                     className="w-full h-full object-cover"
                   />

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Confetti from 'react-confetti';
+import { API_URL } from '../../config/api';
 
 function Friend() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -462,7 +463,7 @@ function Friend() {
     
     // Send forgiveness count to backend
     try {
-      await fetch('http://localhost:8000/api/special/increment-forgiveness/', {
+      await fetch(`${API_URL}/special/increment-forgiveness/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -504,7 +505,7 @@ function Friend() {
   const handleSubmitComment = async () => {
     if (comment.trim()) {
       try {
-        const response = await fetch('http://localhost:8000/api/special/add-comment/', {
+        const response = await fetch(`${API_URL}/special/add-comment/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

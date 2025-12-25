@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Button from '../Button'
 import { checkInContext } from './CheckInContextProvider'
+import { API_URL } from '../../config/api'
 
 function CheckInUpdate() {
     const { state } = useLocation()
@@ -21,7 +22,7 @@ function CheckInUpdate() {
                 mood: state?.item?.mood,
                 color: state?.item?.color
             }
-            const response = await axios.put(`http://localhost:8000/api/checkin/${state?.item?.id}/`, updatedData)
+            const response = await axios.put(`${API_URL}/checkin/${state?.item?.id}/`, updatedData)
             console.log('Check-in updated successfully:', response.data)
             setCheckInDataList(prevList => 
                 prevList.map(item => item.id === state?.item?.id ? response.data : item)

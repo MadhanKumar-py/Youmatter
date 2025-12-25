@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Button from '../Button';
 import { useAuth } from '../auth/AuthContext';
+import { API_URL } from '../../config/api';
 
 function JournalView() {
   const { id } = useParams();
@@ -35,7 +36,7 @@ function JournalView() {
 
   const fetchEntry = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/api/journal/${id}/`);
+      const response = await axios.get(`${API_URL}/journal/${id}/`);
       setEntry(response.data);
     } catch (error) {
       console.error('Error fetching journal entry:', error);
@@ -52,7 +53,7 @@ function JournalView() {
     }
 
     try {
-      await axios.delete(`http://localhost:8000/api/journal/${id}/`);
+      await axios.delete(`${API_URL}/journal/${id}/`);
       navigate('/journal');
     } catch (error) {
       console.error('Error deleting journal entry:', error);
