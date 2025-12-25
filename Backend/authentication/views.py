@@ -77,31 +77,35 @@ class ProfileView(APIView):
         return Response(user_data)
 
 # TEMPORARY ADMIN CREATION ENDPOINT - REMOVE AFTER USE
-@api_view(['POST'])
+@api_view(['GET', 'POST'])
 @permission_classes([AllowAny])
 def create_admin_endpoint(request):
     # Only allow this in production and only if admin doesn't exist
-    if not settings.DEBUG:  # Only in production
-        try:
-            # Check if admin already exists
-            if User.objects.filter(username='admin').exists():
-                return Response({'error': 'Admin already exists'}, status=status.HTTP_400_BAD_REQUEST)
-            
-            # Create admin user
-            admin_user = User.objects.create_superuser(
-                username='admin',
-                email='admin@youmatter.com',
-                password='YouMatter2024!'
-            )
-            
+    try:
+        # Check if admin already exists
+        if User.objects.filter(username='admin').exists():
             return Response({
-                'success': True,
-                'message': 'Admin user created successfully',
+                'error': 'Admin already exists',
+                'admin_url': 'https://youmatter-backend-9tfj.onrender.com/admin/',
                 'username': 'admin',
-                'note': 'Please remove this endpoint after use for security'
-            }, status=status.HTTP_201_CREATED)
-            
-        except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    else:
-        return Response({'error': 'This endpoint only works in production'}, status=status.HTTP_403_FORBIDDEN)
+                'password': 'YouMatter2024!'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Create admin user
+        admin_user = User.objects.create_superuser(
+            username='admin',
+            email='admin@youmatter.com',
+            password='YouMatter2024!'
+        )
+        
+        return Response({
+            'success': True,
+            'message': 'Admin user created successfully',
+            'admin_url': 'https://youmatter-backend-9tfj.onrender.com/admin/',
+            'username': 'admin',
+            'password': 'YouMatter2024!',
+            'note': 'Please remove this endpoint after use for security'
+        }, status=status.HTTP_201_CREATED)
+        
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
