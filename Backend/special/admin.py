@@ -1,12 +1,8 @@
 from django.contrib import admin
 from .models import FriendComment, ForgivenessCount
 
-# Completely disable FriendComment admin to avoid 500 error
-# @admin.register(FriendComment)
-# class FriendCommentAdmin(admin.ModelAdmin):
-#     list_display = ['id', 'created_at']
-#     readonly_fields = ['created_at']
-#     ordering = ['-created_at']
+# Very basic admin registration to test
+admin.site.register(FriendComment)
 
 # Disable ForgivenessCount temporarily
 # @admin.register(ForgivenessCount)
