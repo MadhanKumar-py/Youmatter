@@ -1,18 +1,12 @@
 from django.contrib import admin
 from .models import FriendComment, ForgivenessCount
 
-# Test one by one - start with FriendComment only
+# Simplified FriendComment admin to identify 500 error
 @admin.register(FriendComment)
 class FriendCommentAdmin(admin.ModelAdmin):
-    list_display = ['id', 'text_preview', 'timestamp', 'created_at']
-    list_filter = ['created_at', 'timestamp']
-    search_fields = ['text']
+    list_display = ['id', 'created_at']
     readonly_fields = ['created_at']
     ordering = ['-created_at']
-    
-    def text_preview(self, obj):
-        return obj.text[:100] + "..." if len(obj.text) > 100 else obj.text
-    text_preview.short_description = 'Comment Preview'
 
 # Disable ForgivenessCount temporarily
 # @admin.register(ForgivenessCount)
