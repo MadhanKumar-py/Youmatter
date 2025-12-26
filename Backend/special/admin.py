@@ -1,8 +1,8 @@
 from django.contrib import admin
 from .models import FriendComment, ForgivenessCount
 
-# Very basic admin registration to test
-admin.site.register(FriendComment)
+# Completely remove FriendComment from admin to stop 500 errors
+# admin.site.register(FriendComment)
 
 # Disable ForgivenessCount temporarily
 # @admin.register(ForgivenessCount)

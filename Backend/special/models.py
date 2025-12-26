@@ -4,7 +4,7 @@ from django.utils import timezone
 
 class FriendComment(models.Model):
     text = models.TextField()
-    timestamp = models.DateTimeField(default=timezone.now)
+    timestamp = models.DateTimeField(null=True, blank=True)  # Allow null to avoid default issues
     created_at = models.DateTimeField(auto_now_add=True)
     
     class Meta:
@@ -16,7 +16,7 @@ class FriendComment(models.Model):
 
 class ForgivenessCount(models.Model):
     count = models.PositiveIntegerField(default=0)
-    last_updated = models.DateTimeField(default=timezone.now)
+    last_updated = models.DateTimeField(auto_now=True)  # Use auto_now instead of default
     
     class Meta:
         verbose_name = "Forgiveness Count"
@@ -39,6 +39,5 @@ class ForgivenessCount(models.Model):
         """Increment the forgiveness count"""
         obj = cls.get_current_count()
         obj.count += 1
-        obj.last_updated = timezone.now()
-        obj.save()
+        obj.save()  # auto_now will handle last_updated
         return obj
