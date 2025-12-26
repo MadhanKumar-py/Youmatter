@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 
 class JournalEntry(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='journal_entries', null=True, blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='journal_entries')
     title = models.CharField(max_length=200, blank=True, null=True)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -13,4 +13,6 @@ class JournalEntry(models.Model):
         verbose_name_plural = 'Journal Entries'
 
     def __str__(self):
-        return self.title if self.title else f"Entry from {self.created_at.strftime('%Y-%m-%d')}"
+        username = self.user.username if self.user else "Unknown"
+        title = self.title if self.title else f"Entry from {self.created_at.strftime('%Y-%m-%d')}"
+        return f"{username}: {title}"
