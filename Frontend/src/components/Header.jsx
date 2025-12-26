@@ -11,7 +11,7 @@ function Header() {
       {/* Navbar Start */}
       <div className="navbar-start flex-1 min-w-0">
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost xl:hidden">
+          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -98,8 +98,8 @@ function Header() {
         </Link>
       </div>
 
-      {/* Navbar Center (Desktop Menu) */}
-      <div className="navbar-center hidden xl:flex absolute left-1/2 transform -translate-x-1/2">
+      {/* Navbar Center (Desktop Menu) - Show at 1024px+ */}
+      <div className="navbar-center hidden lg:flex absolute left-1/2 transform -translate-x-1/2">
         <ul className="menu menu-horizontal px-1">
           <li>
             <Link to="/" className="text-darkGreen hover:bg-lighterGreen hover:text-neutralGray px-4 rounded-md transition-all text-sm lg:text-base">
