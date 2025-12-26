@@ -48,8 +48,7 @@ yarn-error.log*
 .DS_Store
 Thumbs.db
 
-# Special App Data (Friend Component)
-Backend/special/migrations/
+# Special App Data (Friend Component) - Only ignore JSON data file
 Frontend/src/components/special/friendData.json
 
 # Environment variables
