@@ -6,8 +6,45 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
+from django.core.management import call_command
+from django.db import connection
 from .models import FriendComment, ForgivenessCount
 from .serializers import FriendCommentSerializer, ForgivenessCountSerializer
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def run_migrations(request):
+    """Force run migrations for special app"""
+    try:
+        # Check if table exists
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                SELECT EXISTS (
+                    SELECT FROM information_schema.tables 
+                    WHERE table_schema = 'public' 
+                    AND table_name = 'special_friendcomment'
+                );
+            """)
+            table_exists = cursor.fetchone()[0]
+        
+        if not table_exists:
+            # Run migrations
+            call_command('migrate', 'special', verbosity=2)
+            return Response({
+                'success': True,
+                'message': 'Migrations run successfully',
+                'table_created': True
+            })
+        else:
+            return Response({
+                'success': True,
+                'message': 'Table already exists',
+                'table_created': False
+            })
+            
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 @api_view(['POST'])
